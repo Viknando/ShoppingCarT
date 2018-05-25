@@ -15,6 +15,9 @@ import com.want.shoppingcar.R;
 import com.want.shoppingcar.databinding.ItemGuessUlikeProductBinding;
 import com.want.shoppingcar.shopcar.entity.GuessULikeBean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by viknando on 2018/5/24.
  */
@@ -23,10 +26,16 @@ public class StaggeredAdapter extends DelegateAdapter.Adapter<GuessULikeViewHold
 
     private Context context;
     private LayoutHelper helper;
+    private ActionInterface mActionInterface;
+    private List<GuessULikeBean> list = new ArrayList<>();
 
-    public StaggeredAdapter(Context context, LayoutHelper helper, String name) {
+    public StaggeredAdapter(Context context, LayoutHelper helper) {
         this.context = context;
         this.helper = helper;
+    }
+    public void setData(List<GuessULikeBean> list){
+         this.list=list;
+         notifyDataSetChanged();
     }
 
     public LayoutHelper onCreateLayoutHelper() {
@@ -40,23 +49,42 @@ public class StaggeredAdapter extends DelegateAdapter.Adapter<GuessULikeViewHold
         return holder;
     }
 
-    public void onBindViewHolder(final GuessULikeViewHolder holder, int position) {
-        holder.setData(new GuessULikeBean("goodsName" + position, "¥" + position + ".00", "url" + position, "" + position));
-        ImageView goodsImage = holder.mBinding.goodsImage;
-        TextView goodsName = holder.mBinding.goodsName;
-        TextView goodsPrice = holder.mBinding.goodsPrice;
-        TextView reduceGoodsNum = holder.mBinding.tvSellNum;
-        ImageView ivAddtoShopcar=holder.mBinding.ivAddtoShopcar;
-        ivAddtoShopcar.setOnClickListener(new View.OnClickListener() {
+    public void onBindViewHolder(final GuessULikeViewHolder holder, final int position) {
+        holder.setData(list.get(position));
+
+        holder.mBinding.ivShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context,"add to shop car", Toast.LENGTH_SHORT).show();
+                mActionInterface.doShare(list.get(position));
+            }
+        });
+        holder.mBinding.ivAddtoShopcar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mActionInterface.doAddToShopCar(list.get(position));
             }
         });
     }
 
     public int getItemCount() {
-        return 10;
+        return list.size();
+    }
+
+    /**
+     * 分析和添加到购物车的接口
+     */
+    public interface ActionInterface {
+        /**
+         * 增加操作
+         *
+         * @param bean 喜欢的对象
+         */
+        void doShare(GuessULikeBean bean);
+
+        void doAddToShopCar(GuessULikeBean bean);
+    }
+    public void setActionInterface(ActionInterface actionInterface){
+        mActionInterface=actionInterface;
     }
 
 }

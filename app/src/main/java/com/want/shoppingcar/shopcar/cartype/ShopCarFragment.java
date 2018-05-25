@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
@@ -23,6 +24,7 @@ import com.want.shoppingcar.databinding.ShopCarFragmentBinding;
 import com.want.shoppingcar.shopcar.adapter.DelegateRecyclerAdapter;
 import com.want.shoppingcar.shopcar.adapter.StaggeredAdapter;
 import com.want.shoppingcar.shopcar.contract.ShopCarContract;
+import com.want.shoppingcar.shopcar.entity.GuessULikeBean;
 import com.want.shoppingcar.shopcar.entity.ShopcarProductBean;
 import com.want.shoppingcar.shopcar.viewmodel.ShopCarModel;
 
@@ -31,7 +33,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapter.ModifyCountInterface {
+public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapter.ModifyCountInterface,StaggeredAdapter.ActionInterface {
     public ShopCarFragmentBinding binding;
     private ShopCarModel model;
     private StaggeredAdapter staggeredAdapter;
@@ -39,6 +41,7 @@ public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapte
     private DelegateAdapter delegateAdapter;
     final List<DelegateAdapter.Adapter> adapters = new LinkedList<>();
     private List<ShopcarProductBean> list;
+    private List<GuessULikeBean> uList;
     private SwipeRefreshLayout swiperereshlayout;
 
     public static ShopCarFragment newInstance() {
@@ -75,8 +78,7 @@ public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapte
                 //设置2秒的时间来执行以下事件
                 new Handler().postDelayed(new Runnable() {
                     public void run() {
-                        list.add(new ShopcarProductBean("goodsName" + (list.size()+1), "¥" + (list.size()+1) + ".00", "url" + (list.size()+1), (list.size()+1), "" + (list.size()+1), false, (list.size()+1),list.size()>3?false:true));
-                        delegateRecyclerAdapter.setData(list);
+                        addToShopCar(new ShopcarProductBean("goodsName" + (list.size()+1), "¥" + (list.size()+1) + ".00", "url" + (list.size()+1), (list.size()+1), "" + (list.size()+1), false, (list.size()+1),list.size()>3?false:true));
                         swiperereshlayout.setRefreshing(false);
                     }
                 }, 2000);
@@ -103,7 +105,13 @@ public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapte
 
     public StaggeredAdapter initStageredAdapter(Context context) {
         StaggeredGridLayoutHelper staggeredGridLayoutHelper = new StaggeredGridLayoutHelper(2, 20);
-        staggeredAdapter = new StaggeredAdapter(context, staggeredGridLayoutHelper, "StaggeredGridLayoutHelper");
+        staggeredAdapter = new StaggeredAdapter(context, staggeredGridLayoutHelper);
+        staggeredAdapter.setActionInterface(this);
+        uList=new ArrayList<>();
+        for(int i=0;i<8;i++){
+            uList.add(new GuessULikeBean("uGoodsName" + i, "¥" + i + ".00", "url" + i, "" + i));
+        }
+        staggeredAdapter.setData(uList);
         return staggeredAdapter;
     }
 
@@ -122,6 +130,8 @@ public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapte
         return delegateRecyclerAdapter;
     }
 
+
+    //shop car
     @Override
     public void doIncrease(int position, TextView showCountView, TextView increaseView, TextView decreaseView) {
         int num = Integer.parseInt(showCountView.getText().toString().trim());
@@ -153,6 +163,7 @@ public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapte
 
 
     }
+
     public void changeState(){
         delegateRecyclerAdapter.changEdit();
     }
@@ -161,6 +172,28 @@ public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapte
     }
     public void del(){
         delegateRecyclerAdapter.del();
+    }
+    public void addToShopCar(ShopcarProductBean bean){
+        list.add(bean);
+        delegateRecyclerAdapter.setData(list);
+    }
+    public void addToShopCar(List<ShopcarProductBean> l){
+        list.addAll(l);
+        delegateRecyclerAdapter.setData(list);
+    }
+
+
+
+    //guess ulike
+    @Override
+    public void doShare(GuessULikeBean bean) {
+        Toast.makeText(getActivity(),bean.getGoodsName(),Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void doAddToShopCar(GuessULikeBean bean) {
+        addToShopCar(new ShopcarProductBean(bean.getGoodsName(), "¥" + (list.size()+1) + ".00", "url" + (list.size()+1), (list.size()+1), "" + (list.size()+1), false, (list.size()+1),list.size()>3?false:true));
     }
 
 }
