@@ -55,7 +55,7 @@ public class DelegateRecyclerAdapter extends DelegateAdapter.Adapter<ShopCarView
     public void onBindViewHolder(final ShopCarViewHolder holder, final int position) {
         holder.setData(list.get(position));
         //改变背景色的逻辑判断
-        if ("1".equals(holder.mBinding.goodsNum.getText())) {
+        if ("1".equals(list.get(position).getBuyNum())) {
 //            reduceGoodsNum.setTextColor(context.getResources().getColor("#E4E3E3"));
             holder.mBinding.reduceGoodsNum.setTextColor(Color.parseColor("#E4E3E3"));
 

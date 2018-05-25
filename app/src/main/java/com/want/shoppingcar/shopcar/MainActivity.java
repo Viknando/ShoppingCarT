@@ -1,10 +1,11 @@
-package com.want.shoppingcar;
+package com.want.shoppingcar.shopcar;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
+import com.want.shoppingcar.R;
 import com.want.shoppingcar.shopcar.cartype.ShopCarFragment;
 
 public class MainActivity extends AppCompatActivity {

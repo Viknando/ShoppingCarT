@@ -93,7 +93,7 @@ public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapte
         delegateRecyclerAdapter=new DelegateRecyclerAdapter(context,linearLayoutHelper);
         delegateRecyclerAdapter.setModifyCountInterface(this);
         list=new ArrayList<>();
-        for(int i=0;i<5;i++){
+        for(int i=1;i<=15;i++){
             list.add(new ShopcarProductBean("goodsName" + i, "¥" + i + ".00", "url" + i, "" + i, "" + i,false,""+i));
         }
         delegateRecyclerAdapter.setData(list);
