@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ShoppingCar</string>
+
+    <!-- shopping car -->
+    <string name="shop_car_all">合计</string>
+    <string name="shop_car_order_total">应付:</string>
+
+</resources>

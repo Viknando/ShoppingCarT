@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="model"
+            type="com.want.shoppingcar.shopcar.viewmodel.ShopCarProductModel" />
+
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="15dp"
+            android:paddingTop="18dp">
+
+            <CheckBox
+                android:id="@+id/single_checkBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="@dimen/dp5"
+                android:background="@null"
+                android:button="@null"
+                android:drawableLeft="@drawable/shop_car_checkbox_bg"
+                android:gravity="center"
+                android:visibility="@{model.showCheckBox}" />
+
+            <ImageView
+                android:id="@+id/goods_image"
+                android:layout_width="87dp"
+                android:layout_height="87dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/shop_hot_item_icon_2x" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="2dp">
+
+                <TextView
+                    android:id="@+id/goods_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textColor="#131010"
+                    android:textSize="14sp"
+                    android:text="@={model.goodsName}"
+                    tools:text="煎饼 原味" />
+
+                <TextView
+                    android:id="@+id/goods_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/goods_name"
+                    android:layout_marginTop="9dp"
+                    android:textSize="11sp"
+                    android:text="@={model.goodSize}"
+                    tools:text="规格:600g" />
+
+                <LinearLayout
+                    android:id="@+id/ll_goods_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="bottom">
+
+                    <TextView
+                        android:id="@+id/goods_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:lines="1"
+                        android:textColor="#F7493C"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:text="@={model.goodsPrice}"
+                        tools:text="￥44.00" />
+
+                    <TextView
+                        android:id="@+id/reduce_goods_num"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:text="—"
+                        android:textColor="#E4E3E3"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/goods_num"
+                        android:layout_width="45dp"
+                        android:layout_height="26dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:background="#F5F5F5"
+                        android:gravity="center"
+                        android:text="@={model.buyNum}"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/increase_goods_num"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:text="+"
+                        android:textColor="#2E2D2D"
+                        android:textSize="20sp" />
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_coupon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:lines="1"
+                    android:textColor="#02B1F2"
+                    android:textSize="12sp"
+                    android:text="@={model.coupon}"
+                    android:visibility="@{model.showCoupon}"
+                    tools:text="会员返：4.00元" />
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+
+</layout>
+
+
+
