@@ -1,6 +1,7 @@
 package com.want.shoppingcar.shopcar.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.want.shoppingcar.databinding.ItemShopCarProductBinding;
 import com.want.shoppingcar.shopcar.entity.ShopcarProductBean;
@@ -27,6 +28,13 @@ public class ShopCarViewHolder extends RecyclerView.ViewHolder {
     }
     public void setData(ShopcarProductBean bean) {
         mViewModel.setData(bean);
+    }
+    public void setShowCheckBox(Boolean bool){
+        if(bool){
+            mViewModel.setShowCheckBox(View.VISIBLE);
+        }else {
+            mViewModel.setShowCheckBox(View.GONE);
+        }
     }
 
 }

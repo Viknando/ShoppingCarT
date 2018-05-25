@@ -28,6 +28,7 @@ public class DelegateRecyclerAdapter extends DelegateAdapter.Adapter<ShopCarView
     private List<ShopcarProductBean> list = new ArrayList<>();
 
     private ModifyCountInterface modifyCountInterface;
+    private boolean isEidt;
 
     public DelegateRecyclerAdapter(Context context, LayoutHelper helper) {
         this.helper = helper;
@@ -37,6 +38,14 @@ public class DelegateRecyclerAdapter extends DelegateAdapter.Adapter<ShopCarView
     public void setData(List<ShopcarProductBean> list) {
         this.list = list;
         notifyDataSetChanged();
+    }
+
+    public void changEdit() {
+        isEidt=!isEidt;
+        notifyDataSetChanged();
+    }
+    public boolean isEidt(){
+        return isEidt;
     }
 
     @Override
@@ -54,6 +63,9 @@ public class DelegateRecyclerAdapter extends DelegateAdapter.Adapter<ShopCarView
     @Override
     public void onBindViewHolder(final ShopCarViewHolder holder, final int position) {
         holder.setData(list.get(position));
+
+        holder.setShowCheckBox(isEidt);
+
         //改变背景色的逻辑判断
         if (list.get(position).getBuyNum() == 1) {
             holder.mBinding.reduceGoodsNum.setTextColor(Color.parseColor("#E4E3E3"));
@@ -75,6 +87,13 @@ public class DelegateRecyclerAdapter extends DelegateAdapter.Adapter<ShopCarView
             @Override
             public void onClick(View v) {
                 modifyCountInterface.doIncrease(position, holder.mBinding.goodsNum, holder.mBinding.increaseGoodsNum, holder.mBinding.reduceGoodsNum);
+            }
+        });
+        holder.mBinding.cbChoose.setChecked(list.get(position).isChoosed());
+        holder.mBinding.cbChoose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                list.get(position).setChoosed(holder.mBinding.cbChoose.isChecked());
             }
         });
     }

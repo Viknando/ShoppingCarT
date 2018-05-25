@@ -153,4 +153,11 @@ public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapte
 
 
     }
+    public void changeState(){
+        delegateRecyclerAdapter.changEdit();
+    }
+    public boolean isEdit(){
+        return delegateRecyclerAdapter.isEidt();
+    }
+
 }

@@ -34,7 +34,6 @@ public class ShopCarProductModel extends BaseObservable {
         setGoodsPrice(data.getGoodsPrice());
         setCoupon(data.getGoodsPrice());//yet
         setShowCoupon(View.GONE);
-        setShowCheckBox(data.isChoosed()? View.VISIBLE: View.GONE);
         setBuyNum(data.getBuyNum());
 
     }
