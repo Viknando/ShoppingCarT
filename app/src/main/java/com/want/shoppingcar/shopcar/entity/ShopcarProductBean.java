@@ -5,12 +5,13 @@ public class ShopcarProductBean {
     private String goodsName;
     private String goodsPrice;
     private String imgUrl;
-    private String sellNum;
+    private int sellNum;
     private String goodsSize;
     private boolean isChoosed;
-    private String buyNum;
+    private int buyNum;
+    private boolean isOutOfStock;
 
-    public ShopcarProductBean(String goodsName, String goodsPrice, String imgUrl, String sellNum, String goodsSize, boolean isChoosed, String buyNum) {
+    public ShopcarProductBean(String goodsName, String goodsPrice, String imgUrl, int sellNum, String goodsSize, boolean isChoosed, int buyNum, boolean isOutOfStock) {
         this.goodsName = goodsName;
         this.goodsPrice = goodsPrice;
         this.imgUrl = imgUrl;
@@ -18,6 +19,7 @@ public class ShopcarProductBean {
         this.goodsSize = goodsSize;
         this.isChoosed = isChoosed;
         this.buyNum = buyNum;
+        this.isOutOfStock = isOutOfStock;
     }
 
     public String getGoodsName() {
@@ -44,11 +46,11 @@ public class ShopcarProductBean {
         this.imgUrl = imgUrl;
     }
 
-    public String getSellNum() {
+    public int getSellNum() {
         return sellNum;
     }
 
-    public void setSellNum(String sellNum) {
+    public void setSellNum(int sellNum) {
         this.sellNum = sellNum;
     }
 
@@ -68,11 +70,19 @@ public class ShopcarProductBean {
         isChoosed = choosed;
     }
 
-    public String getBuyNum() {
+    public int getBuyNum() {
         return buyNum;
     }
 
-    public void setBuyNum(String buyNum) {
+    public void setBuyNum(int buyNum) {
         this.buyNum = buyNum;
+    }
+
+    public boolean isOutOfStock() {
+        return isOutOfStock;
+    }
+
+    public void setOutOfStock(boolean outOfStock) {
+        isOutOfStock = outOfStock;
     }
 }

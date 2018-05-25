@@ -56,8 +56,8 @@ public class ShopCarProductModel extends BaseObservable {
     public void setShowCoupon(int visible){
         this.showCoupon.set(visible);
     }
-    public void setBuyNum(String val){
-        this.buyNum.set(val);
+    public void setBuyNum(int val){
+        this.buyNum.set(""+val);
     }
 
 }
