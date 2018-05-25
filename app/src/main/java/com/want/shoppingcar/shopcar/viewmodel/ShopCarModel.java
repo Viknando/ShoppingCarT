@@ -27,9 +27,9 @@ public class ShopCarModel extends BaseObservable {
         this.mContext = context;
         setSelectAll("全选");
         setPay("结算(10)");
-        setShouldPay("¥4.00");
-        setAllPrice("¥5.00");
-        setDiscount("¥1.00");
+        setShouldPay("4.00");
+        setAllPrice("5.00");
+        setDiscount("1.00");
         setShowSelectAll(View.GONE);
     }
     public void setSelectAll(String val){
@@ -42,13 +42,13 @@ public class ShopCarModel extends BaseObservable {
         this.showSelectAll.set(show);
     }
     public void setShouldPay(String val){
-        this.shouldPay.set(val);
+        this.shouldPay.set("¥"+val);
     }
     public void setAllPrice(String val){
-        this.allPrice.set("总价:"+val);
+        this.allPrice.set("总价:¥"+val);
     }
     public void setDiscount(String val){
-        this.discount.set("优惠:"+val);
+        this.discount.set("优惠:¥"+val);
     }
     public void goPay(View v){
         setPay("结算(0)");

@@ -37,6 +37,7 @@ public class DelegateRecyclerAdapter extends DelegateAdapter.Adapter<ShopCarView
 
     public void setData(List<ShopcarProductBean> list) {
         this.list = list;
+        modifyCountInterface.calculateResult(modifyCountInterface.doCalculate(this.list),modifyCountInterface.doBuyNum(this.list));
         notifyDataSetChanged();
     }
 
@@ -133,6 +134,12 @@ public class DelegateRecyclerAdapter extends DelegateAdapter.Adapter<ShopCarView
         void doIncrease(int childPosition, TextView showCountView, TextView increaseView, TextView decreaseView);
 
         void doDecrease(int childPosition, TextView showCountView, TextView increaseView, TextView decreaseView);
+
+        double doCalculate(List<ShopcarProductBean> list);
+
+        int doBuyNum(List<ShopcarProductBean> list);
+
+        void calculateResult(double result,int num);
     }
 
     public void setModifyCountInterface(ModifyCountInterface modifyCountInterface) {

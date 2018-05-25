@@ -78,7 +78,7 @@ public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapte
                 //设置2秒的时间来执行以下事件
                 new Handler().postDelayed(new Runnable() {
                     public void run() {
-                        addToShopCar(new ShopcarProductBean("goodsName" + (list.size()+1), "¥" + (list.size()+1) + ".00", "url" + (list.size()+1), (list.size()+1), "" + (list.size()+1), false, (list.size()+1),list.size()>3?false:true));
+                        addToShopCar(new ShopcarProductBean("goodsName" + (list.size()+1), "¥" + (list.size()+1) + ".00", "url" + (list.size()+1), (list.size()+1), "" + (list.size()+1), false, (list.size()+1),false));
                         swiperereshlayout.setRefreshing(false);
                     }
                 }, 2000);
@@ -164,6 +164,35 @@ public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapte
 
     }
 
+    @Override
+    public double doCalculate(List<ShopcarProductBean> list) {
+        double money=0.00;
+        for (ShopcarProductBean bean:list) {
+            if(!bean.isOutOfStock()){
+               double d= Double.parseDouble(bean.getGoodsPrice().substring(1))*bean.getBuyNum();
+               money+=d;
+            }
+        }
+        return money;
+    }
+
+    @Override
+    public int doBuyNum(List<ShopcarProductBean> list) {
+        int num=0;
+        for (ShopcarProductBean bean:list) {
+            if(!bean.isOutOfStock()){
+                num+=bean.getBuyNum();
+            }
+        }
+        return num;
+    }
+
+    @Override
+    public void calculateResult(double result,int sum) {
+        model.setShouldPay(""+result);
+        model.setPay("结算（"+sum+")");
+    }
+
     public void changeState(){
         delegateRecyclerAdapter.changEdit();
     }
@@ -193,7 +222,7 @@ public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapte
 
     @Override
     public void doAddToShopCar(GuessULikeBean bean) {
-        addToShopCar(new ShopcarProductBean(bean.getGoodsName(), "¥" + (list.size()+1) + ".00", "url" + (list.size()+1), (list.size()+1), "" + (list.size()+1), false, (list.size()+1),list.size()>3?false:true));
+        addToShopCar(new ShopcarProductBean(bean.getGoodsName(), "¥" + (list.size()+1) + ".00", "url" + (list.size()+1), (list.size()+1), "" + (list.size()+1), false, (list.size()+1),false));
     }
 
 }
