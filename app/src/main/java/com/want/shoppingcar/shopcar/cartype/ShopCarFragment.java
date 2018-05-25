@@ -159,5 +159,8 @@ public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapte
     public boolean isEdit(){
         return delegateRecyclerAdapter.isEidt();
     }
+    public void del(){
+        delegateRecyclerAdapter.del();
+    }
 
 }

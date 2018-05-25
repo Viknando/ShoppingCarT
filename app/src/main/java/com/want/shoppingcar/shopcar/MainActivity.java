@@ -11,19 +11,21 @@ import com.want.shoppingcar.R;
 import com.want.shoppingcar.shopcar.cartype.ShopCarFragment;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private Button btn_edit;
+    private Button btn_edit,btn_del;
     private ShopCarFragment shopCarFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         btn_edit=findViewById(R.id.btn_edit);
+        btn_del=findViewById(R.id.btn_del);
         FragmentManager frgmentManager = getSupportFragmentManager(); // v4中，getSupportFragmentManager
         FragmentTransaction transaction = frgmentManager.beginTransaction();
         shopCarFragment = ShopCarFragment.newInstance();
         transaction.add(R.id.fragment,shopCarFragment);
         transaction.commit();
         btn_edit.setOnClickListener(this);
+        btn_del.setOnClickListener(this);
 
     }
 
@@ -37,6 +39,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }else{
                     btn_edit.setText("编辑");
                 }
+                break;
+            case R.id.btn_del:
+                shopCarFragment.del();
         }
     }
 }

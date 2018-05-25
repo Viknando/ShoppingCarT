@@ -48,6 +48,22 @@ public class DelegateRecyclerAdapter extends DelegateAdapter.Adapter<ShopCarView
         return isEidt;
     }
 
+    public void del() {
+        if(isEidt){
+           ArrayList<Integer> delList=new ArrayList<>();
+           for(int i=0;i<list.size();i++){
+               if(list.get(i).isChoosed()){
+                   delList.add(i);
+               }
+           }
+           for (int i=delList.size()-1;i>=0;i--){
+               list.remove((int)delList.get(i));
+           }
+            setData(list);
+        }
+
+    }
+
     @Override
     public LayoutHelper onCreateLayoutHelper() {
         return this.helper;
