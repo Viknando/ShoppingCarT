@@ -22,8 +22,10 @@ import com.want.shoppingcar.R;
 import com.want.shoppingcar.ceo.frameThings.PFragment;
 import com.want.shoppingcar.databinding.ShopCarFragmentBinding;
 import com.want.shoppingcar.shopcar.adapter.CouponAdapter;
+import com.want.shoppingcar.shopcar.adapter.DelAdapter;
 import com.want.shoppingcar.shopcar.adapter.DelegateRecyclerAdapter;
 import com.want.shoppingcar.shopcar.adapter.DiscountAdapter;
+import com.want.shoppingcar.shopcar.adapter.PostageAdapter;
 import com.want.shoppingcar.shopcar.adapter.StaggeredAdapter;
 import com.want.shoppingcar.shopcar.contract.ShopCarContract;
 import com.want.shoppingcar.shopcar.entity.GuessULikeBean;
@@ -35,11 +37,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapter.ModifyCountInterface, StaggeredAdapter.ActionInterface,CouponAdapter.CouponInterface,DiscountAdapter.DiscountInterface {
+public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapter.ModifyCountInterface, StaggeredAdapter.ActionInterface,CouponAdapter.CouponInterface,DiscountAdapter.DiscountInterface,DelAdapter.DelInterface {
     public ShopCarFragmentBinding binding;
     private ShopCarModel model;
     private StaggeredAdapter staggeredAdapter;
     private DelegateRecyclerAdapter delegateRecyclerAdapter;
+    private PostageAdapter postageAdapter;
+    private DelAdapter delAdapter;
     private CouponAdapter couponAdapter;
     private DiscountAdapter discountAdapter;
     private DelegateAdapter delegateAdapter;
@@ -122,6 +126,8 @@ public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapte
         recyclerView.setRecycledViewPool(viewPool);
         viewPool.setMaxRecycledViews(0, 10);
 
+        adapters.add(initPostageAdapter(getActivity()));
+        adapters.add(initDelAdapter(getActivity()));
         adapters.add(initCouponAdapter(getActivity()));
         adapters.add(initDiscountAdapter(getActivity()));
         adapters.add(initDelegateRecycleAdapter(getActivity()));
@@ -135,6 +141,30 @@ public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapte
         recyclerView.setAdapter(delegateAdapter);
     }
 
+    public PostageAdapter initPostageAdapter(Context context) {
+        LinearLayoutHelper linearLayoutHelper = new LinearLayoutHelper();
+        //设置间隔高度
+        linearLayoutHelper.setDividerHeight(5);
+        //设置布局底部与下个布局的间隔
+        linearLayoutHelper.setMarginBottom(20);
+        //设置间距
+        linearLayoutHelper.setMargin(20, 20, 20, 20);
+        postageAdapter = new PostageAdapter(context, linearLayoutHelper);
+        postageAdapter.setMsg("满50元免运费","已免运费");
+        return postageAdapter;
+    }
+    public DelAdapter initDelAdapter(Context context) {
+        LinearLayoutHelper linearLayoutHelper = new LinearLayoutHelper();
+        //设置间隔高度
+        linearLayoutHelper.setDividerHeight(5);
+        //设置布局底部与下个布局的间隔
+        linearLayoutHelper.setMarginBottom(20);
+        //设置间距
+        linearLayoutHelper.setMargin(20, 20, 20, 20);
+        delAdapter = new DelAdapter(context, linearLayoutHelper);
+        delAdapter.setDelInterface(this);
+        return delAdapter;
+    }
     public CouponAdapter initCouponAdapter(Context context) {
         LinearLayoutHelper linearLayoutHelper = new LinearLayoutHelper();
         //设置间隔高度
@@ -188,6 +218,21 @@ public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapte
         return staggeredAdapter;
     }
 
+    //postage
+    public void changPostage(){
+        postageAdapter.showPostage(!postageAdapter.isShowing());
+    }
+
+    //delGoods
+    @Override
+    public void doDelGoods(int position) {
+        delegateRecyclerAdapter.del();
+    }
+
+    public void changDel(){
+        delAdapter.showDel(!delAdapter.isShowing());
+    }
+
     //coupon
     @Override
     public void doCoupon(int position) {
@@ -199,7 +244,6 @@ public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapte
     }
 
     //discount
-
     @Override
     public void doDiscount(int position) {
         Toast.makeText(getActivity(),"去凑单",Toast.LENGTH_SHORT).show();
@@ -321,6 +365,7 @@ public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapte
     public void doAddToShopCar(GuessULikeBean bean) {
         addToShopCar(new ShopcarProductBean(bean.getGoodsName(), "¥" + (list.size() + 1) + ".00", "url" + (list.size() + 1), (list.size() + 1), "" + (list.size() + 1), false, (list.size() + 1), false));
     }
+
 
 
 }

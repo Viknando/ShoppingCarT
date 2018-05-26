@@ -9,7 +9,7 @@
     android:gravity="end">
 
     <TextView
-        android:id="@+id/tv_del"
+        android:id="@+id/btv_del"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="14dp"

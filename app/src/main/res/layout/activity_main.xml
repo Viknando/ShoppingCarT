@@ -24,7 +24,8 @@
                 android:id="@+id/btn_del"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="删除"/>
+                android:text="删除"
+                android:visibility="gone"/>
             <Button
                 android:id="@+id/btn_coupon"
                 android:layout_width="wrap_content"
@@ -35,6 +36,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="满减"/>
+            <Button
+                android:id="@+id/btn_postage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="免邮"/>
 
         </LinearLayout>
 
