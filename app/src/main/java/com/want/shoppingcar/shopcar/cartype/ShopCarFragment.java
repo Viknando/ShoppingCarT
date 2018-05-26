@@ -27,6 +27,7 @@ import com.want.shoppingcar.shopcar.adapter.DelegateRecyclerAdapter;
 import com.want.shoppingcar.shopcar.adapter.DiscountAdapter;
 import com.want.shoppingcar.shopcar.adapter.PostageAdapter;
 import com.want.shoppingcar.shopcar.adapter.StaggeredAdapter;
+import com.want.shoppingcar.shopcar.adapter.ULikeHeaderAdapter;
 import com.want.shoppingcar.shopcar.contract.ShopCarContract;
 import com.want.shoppingcar.shopcar.entity.GuessULikeBean;
 import com.want.shoppingcar.shopcar.entity.ShopcarProductBean;
@@ -131,6 +132,7 @@ public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapte
         adapters.add(initCouponAdapter(getActivity()));
         adapters.add(initDiscountAdapter(getActivity()));
         adapters.add(initDelegateRecycleAdapter(getActivity()));
+        adapters.add(initULikeHeaderAdapter(getActivity()));
         adapters.add(initStageredAdapter(getActivity()));
 
         VirtualLayoutManager manager = new VirtualLayoutManager(getActivity());
@@ -206,6 +208,16 @@ public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapte
         return delegateRecyclerAdapter;
     }
 
+    public ULikeHeaderAdapter initULikeHeaderAdapter(Context context) {
+        LinearLayoutHelper linearLayoutHelper = new LinearLayoutHelper();
+        //设置间隔高度
+        linearLayoutHelper.setDividerHeight(5);
+        //设置布局底部与下个布局的间隔
+        linearLayoutHelper.setMarginBottom(20);
+        //设置间距
+        linearLayoutHelper.setMargin(20, 20, 20, 20);
+        return new ULikeHeaderAdapter(context, linearLayoutHelper);
+    }
     public StaggeredAdapter initStageredAdapter(Context context) {
         StaggeredGridLayoutHelper staggeredGridLayoutHelper = new StaggeredGridLayoutHelper(2, 20);
         staggeredAdapter = new StaggeredAdapter(context, staggeredGridLayoutHelper);
