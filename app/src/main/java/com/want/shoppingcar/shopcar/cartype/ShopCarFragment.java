@@ -43,6 +43,7 @@ public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapte
     private List<ShopcarProductBean> list;
     private List<GuessULikeBean> uList;
     private SwipeRefreshLayout swiperereshlayout;
+    private RecyclerView recyclerView;
 
     public static ShopCarFragment newInstance() {
         ShopCarFragment shopCarFragment = new ShopCarFragment();
@@ -58,8 +59,10 @@ public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapte
         model = new ShopCarModel(getActivity(), getPresenter());
         binding.setModel(model);
         swiperereshlayout = binding.swiperereshlayout;
+        recyclerView=binding.recyclerview;
         setSwipereresh();
-        setShopCar(binding.recyclerview);
+        setRecycleView();
+        setShopCar();
         return binding.getRoot();
     }
 
@@ -85,8 +88,30 @@ public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapte
             }
         });
     }
+    public void setRecycleView(){
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
 
-    public void setShopCar(RecyclerView recyclerView) {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (isSlideToBottom(recyclerView)) {
+                    loadMoreULike();
+                }
+            }
+        });
+    }
+    private boolean isSlideToBottom(RecyclerView recyclerView){
+        if (recyclerView == null) return false;
+        if (recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset() >= recyclerView.computeVerticalScrollRange())
+            return true;
+        return false;
+    }
+
+    public void setShopCar() {
         RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
         recyclerView.setRecycledViewPool(viewPool);
         viewPool.setMaxRecycledViews(0, 10);
@@ -108,7 +133,7 @@ public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapte
         staggeredAdapter = new StaggeredAdapter(context, staggeredGridLayoutHelper);
         staggeredAdapter.setActionInterface(this);
         uList=new ArrayList<>();
-        for(int i=0;i<8;i++){
+        for(int i=1;i<8;i++){
             uList.add(new GuessULikeBean("uGoodsName" + i, "¥" + i + ".00", "url" + i, "" + i));
         }
         staggeredAdapter.setData(uList);
@@ -214,6 +239,23 @@ public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapte
 
 
     //guess ulike
+
+    public void addToULike(GuessULikeBean bean){
+        uList.add(bean);
+        staggeredAdapter.setData(uList);
+    }
+    public void addToULike(List<GuessULikeBean> l){
+        uList.addAll(l);
+        staggeredAdapter.setData(uList);
+    }
+    public void loadMoreULike(){
+        List<GuessULikeBean> l=new ArrayList<>();
+        for(int i=0;i<4;i++){
+            l.add(new GuessULikeBean("uGoodsName" + i, "¥" + i + ".00", "url" + i, "" + i));
+        }
+        addToULike(l);
+    }
+
     @Override
     public void doShare(GuessULikeBean bean) {
         Toast.makeText(getActivity(),bean.getGoodsName(),Toast.LENGTH_SHORT).show();
