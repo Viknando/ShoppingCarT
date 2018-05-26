@@ -2,4 +2,4 @@
 一个购物车练习Demo<br>
 使用了alibaba/vlayout框架
 
-![image](https://github.com/AndroidNerd/ChartTest/blob/master/pic/chart.gif?raw=true)<br>
+![image](https://github.com/Viknando/ShoppingCarT/blob/master/gif/shopcar.gif?raw=true)<br>
