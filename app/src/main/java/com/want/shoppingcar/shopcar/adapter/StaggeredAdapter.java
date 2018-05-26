@@ -17,6 +17,7 @@ import com.want.shoppingcar.shopcar.entity.GuessULikeBean;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by viknando on 2018/5/24.
@@ -33,9 +34,10 @@ public class StaggeredAdapter extends DelegateAdapter.Adapter<GuessULikeViewHold
         this.context = context;
         this.helper = helper;
     }
-    public void setData(List<GuessULikeBean> list){
-         this.list=list;
-         notifyDataSetChanged();
+
+    public void setData(List<GuessULikeBean> list) {
+        this.list = list;
+        notifyDataSetChanged();
     }
 
     public LayoutHelper onCreateLayoutHelper() {
@@ -45,6 +47,9 @@ public class StaggeredAdapter extends DelegateAdapter.Adapter<GuessULikeViewHold
     @Override
     public GuessULikeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ItemGuessUlikeProductBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_guess_ulike_product, parent, false);
+//        ViewGroup.LayoutParams lp = binding.getRoot().getLayoutParams();
+//        lp.height = 300 + new Random().nextInt(100);
+//        binding.getRoot().setLayoutParams(lp);
         GuessULikeViewHolder holder = new GuessULikeViewHolder(binding);
         return holder;
     }
@@ -83,8 +88,9 @@ public class StaggeredAdapter extends DelegateAdapter.Adapter<GuessULikeViewHold
 
         void doAddToShopCar(GuessULikeBean bean);
     }
-    public void setActionInterface(ActionInterface actionInterface){
-        mActionInterface=actionInterface;
+
+    public void setActionInterface(ActionInterface actionInterface) {
+        mActionInterface = actionInterface;
     }
 
 }

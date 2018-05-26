@@ -8,8 +8,6 @@ import com.want.shoppingcar.shopcar.entity.GuessULikeBean;
 import com.want.shoppingcar.shopcar.viewmodel.GuessULikeModel;
 
 /**
- * <b>Create Date:</b> 2017/6/9<br>
- * <b>Author:</b> Zhanglei<br>
  * <b>Description:</b> <br>
  */
 

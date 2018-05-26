@@ -9,8 +9,6 @@ import com.want.shoppingcar.shopcar.viewmodel.ShopCarProductModel;
 
 
 /**
- * <b>Create Date:</b> 2017/6/9<br>
- * <b>Author:</b> Zhanglei<br>
  * <b>Description:</b> <br>
  */
 

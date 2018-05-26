@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_coupon"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_coupon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="14dp"
+        android:src="@drawable/shop_hot_item_icon_2x" />
+
+    <TextView
+        android:id="@+id/tv_coupon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginBottom="14dp"
+        android:layout_marginTop="14dp"
+        android:layout_weight="1"
+        android:textColor="#2E2D2D"
+        android:textSize="12sp"
+        android:text="有可领优惠券"
+        tools:text="有可领优惠券" />
+
+    <View
+        android:layout_width="1px"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/dp14"
+        android:background="@color/shop_car_gray" />
+
+    <TextView
+        android:id="@+id/btv_coupon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:paddingTop="14dp"
+        android:paddingRight="@dimen/dp13"
+        android:paddingLeft="@dimen/dp13"
+        android:paddingBottom="14dp"
+        android:textColor="#02B1F2"
+        android:textSize="12sp"
+        android:text="立即领券"
+        tools:text="立即领券" />
+</LinearLayout>

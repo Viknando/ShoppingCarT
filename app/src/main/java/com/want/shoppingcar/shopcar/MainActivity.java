@@ -11,7 +11,7 @@ import com.want.shoppingcar.R;
 import com.want.shoppingcar.shopcar.cartype.ShopCarFragment;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private Button btn_edit,btn_del;
+    private Button btn_edit,btn_del,btn_coupon,btn_discount;
     private ShopCarFragment shopCarFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         btn_edit=findViewById(R.id.btn_edit);
         btn_del=findViewById(R.id.btn_del);
+        btn_coupon=findViewById(R.id.btn_coupon);
+        btn_discount=findViewById(R.id.btn_discount);
         FragmentManager frgmentManager = getSupportFragmentManager(); // v4中，getSupportFragmentManager
         FragmentTransaction transaction = frgmentManager.beginTransaction();
         shopCarFragment = ShopCarFragment.newInstance();
@@ -26,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         transaction.commit();
         btn_edit.setOnClickListener(this);
         btn_del.setOnClickListener(this);
+        btn_coupon.setOnClickListener(this);
+        btn_discount.setOnClickListener(this);
 
     }
 
@@ -42,6 +46,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_del:
                 shopCarFragment.del();
+                break;
+            case R.id.btn_coupon:
+                shopCarFragment.changCoupon();
+                break;
+            case R.id.btn_discount:
+                shopCarFragment.changeDiscount();
+                break;
         }
     }
 }
