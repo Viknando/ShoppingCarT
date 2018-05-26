@@ -22,7 +22,7 @@ import java.util.List;
  * Created by viknando on 2018/5/24.
  */
 
-public class DelegateRecyclerAdapter extends DelegateAdapter.Adapter<ShopCarViewHolder> {
+public class ShopcarRecyclerAdapter extends DelegateAdapter.Adapter<ShopCarViewHolder> {
     public Context context;
     private LayoutHelper helper;
     private List<ShopcarProductBean> list = new ArrayList<>();
@@ -30,7 +30,7 @@ public class DelegateRecyclerAdapter extends DelegateAdapter.Adapter<ShopCarView
     private ModifyCountInterface modifyCountInterface;
     private boolean isEidt;
 
-    public DelegateRecyclerAdapter(Context context, LayoutHelper helper) {
+    public ShopcarRecyclerAdapter(Context context, LayoutHelper helper) {
         this.helper = helper;
         this.context = context;
     }

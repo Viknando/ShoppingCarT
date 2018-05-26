@@ -23,7 +23,7 @@ import com.want.shoppingcar.ceo.frameThings.PFragment;
 import com.want.shoppingcar.databinding.ShopCarFragmentBinding;
 import com.want.shoppingcar.shopcar.adapter.CouponAdapter;
 import com.want.shoppingcar.shopcar.adapter.DelAdapter;
-import com.want.shoppingcar.shopcar.adapter.DelegateRecyclerAdapter;
+import com.want.shoppingcar.shopcar.adapter.ShopcarRecyclerAdapter;
 import com.want.shoppingcar.shopcar.adapter.DiscountAdapter;
 import com.want.shoppingcar.shopcar.adapter.PostageAdapter;
 import com.want.shoppingcar.shopcar.adapter.StaggeredAdapter;
@@ -38,11 +38,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapter.ModifyCountInterface, StaggeredAdapter.ActionInterface,CouponAdapter.CouponInterface,DiscountAdapter.DiscountInterface,DelAdapter.DelInterface {
+public class ShopCarFragment extends PFragment implements ShopcarRecyclerAdapter.ModifyCountInterface, StaggeredAdapter.ActionInterface,CouponAdapter.CouponInterface,DiscountAdapter.DiscountInterface,DelAdapter.DelInterface {
     public ShopCarFragmentBinding binding;
     private ShopCarModel model;
     private StaggeredAdapter staggeredAdapter;
-    private DelegateRecyclerAdapter delegateRecyclerAdapter;
+    private ShopcarRecyclerAdapter shopcarRecyclerAdapter;
     private PostageAdapter postageAdapter;
     private DelAdapter delAdapter;
     private CouponAdapter couponAdapter;
@@ -193,7 +193,7 @@ public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapte
         return discountAdapter;
     }
 
-    public DelegateRecyclerAdapter initDelegateRecycleAdapter(Context context) {
+    public ShopcarRecyclerAdapter initDelegateRecycleAdapter(Context context) {
         LinearLayoutHelper linearLayoutHelper = new LinearLayoutHelper();
         //设置间隔高度
         linearLayoutHelper.setDividerHeight(5);
@@ -201,11 +201,11 @@ public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapte
         linearLayoutHelper.setMarginBottom(20);
         //设置间距
         linearLayoutHelper.setMargin(20, 20, 20, 20);
-        delegateRecyclerAdapter = new DelegateRecyclerAdapter(context, linearLayoutHelper);
-        delegateRecyclerAdapter.setModifyCountInterface(this);
+        shopcarRecyclerAdapter = new ShopcarRecyclerAdapter(context, linearLayoutHelper);
+        shopcarRecyclerAdapter.setModifyCountInterface(this);
         list = new ArrayList<>();
-        delegateRecyclerAdapter.setData(list);
-        return delegateRecyclerAdapter;
+        shopcarRecyclerAdapter.setData(list);
+        return shopcarRecyclerAdapter;
     }
 
     public ULikeHeaderAdapter initULikeHeaderAdapter(Context context) {
@@ -238,7 +238,7 @@ public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapte
     //delGoods
     @Override
     public void doDelGoods(int position) {
-        delegateRecyclerAdapter.del();
+        shopcarRecyclerAdapter.del();
     }
 
     public void changDel(){
@@ -275,7 +275,7 @@ public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapte
             }
         }
         decreaseView.setTextColor(Color.parseColor("#2E2D2D"));
-        delegateRecyclerAdapter.setData(list);
+        shopcarRecyclerAdapter.setData(list);
     }
 
     @Override
@@ -291,7 +291,7 @@ public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapte
             }
         }
         increaseView.setTextColor(Color.parseColor("#2E2D2D"));
-        delegateRecyclerAdapter.setData(list);
+        shopcarRecyclerAdapter.setData(list);
 
 
     }
@@ -326,25 +326,25 @@ public class ShopCarFragment extends PFragment implements DelegateRecyclerAdapte
     }
 
     public void changeState() {
-        delegateRecyclerAdapter.changEdit();
+        shopcarRecyclerAdapter.changEdit();
     }
 
     public boolean isEdit() {
-        return delegateRecyclerAdapter.isEidt();
+        return shopcarRecyclerAdapter.isEidt();
     }
 
     public void del() {
-        delegateRecyclerAdapter.del();
+        shopcarRecyclerAdapter.del();
     }
 
     public void addToShopCar(ShopcarProductBean bean) {
         list.add(bean);
-        delegateRecyclerAdapter.setData(list);
+        shopcarRecyclerAdapter.setData(list);
     }
 
     public void addToShopCar(List<ShopcarProductBean> l) {
         list.addAll(l);
-        delegateRecyclerAdapter.setData(list);
+        shopcarRecyclerAdapter.setData(list);
     }
 
 
