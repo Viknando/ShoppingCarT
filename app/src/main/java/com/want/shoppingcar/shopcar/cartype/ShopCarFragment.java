@@ -23,6 +23,7 @@ import com.want.shoppingcar.ceo.frameThings.PFragment;
 import com.want.shoppingcar.databinding.ShopCarFragmentBinding;
 import com.want.shoppingcar.shopcar.adapter.CouponAdapter;
 import com.want.shoppingcar.shopcar.adapter.DelAdapter;
+import com.want.shoppingcar.shopcar.adapter.EmptyViewAdapter;
 import com.want.shoppingcar.shopcar.adapter.ShopcarRecyclerAdapter;
 import com.want.shoppingcar.shopcar.adapter.DiscountAdapter;
 import com.want.shoppingcar.shopcar.adapter.PostageAdapter;
@@ -38,7 +39,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class ShopCarFragment extends PFragment implements ShopcarRecyclerAdapter.ModifyCountInterface, StaggeredAdapter.ActionInterface,CouponAdapter.CouponInterface,DiscountAdapter.DiscountInterface,DelAdapter.DelInterface {
+public class ShopCarFragment extends PFragment implements ShopcarRecyclerAdapter.ModifyCountInterface, StaggeredAdapter.ActionInterface,CouponAdapter.CouponInterface,DiscountAdapter.DiscountInterface,DelAdapter.DelInterface,EmptyViewAdapter.EmptyViewInterface {
     public ShopCarFragmentBinding binding;
     private ShopCarModel model;
     private StaggeredAdapter staggeredAdapter;
@@ -47,6 +48,7 @@ public class ShopCarFragment extends PFragment implements ShopcarRecyclerAdapter
     private DelAdapter delAdapter;
     private CouponAdapter couponAdapter;
     private DiscountAdapter discountAdapter;
+    private EmptyViewAdapter emptyViewAdapter;
     private DelegateAdapter delegateAdapter;
     final List<DelegateAdapter.Adapter> adapters = new LinkedList<>();
     private List<ShopcarProductBean> list;
@@ -131,6 +133,7 @@ public class ShopCarFragment extends PFragment implements ShopcarRecyclerAdapter
         adapters.add(initDelAdapter(getActivity()));
         adapters.add(initCouponAdapter(getActivity()));
         adapters.add(initDiscountAdapter(getActivity()));
+        adapters.add(initEmptyViewAdapter(getActivity()));
         adapters.add(initDelegateRecycleAdapter(getActivity()));
         adapters.add(initULikeHeaderAdapter(getActivity()));
         adapters.add(initStageredAdapter(getActivity()));
@@ -146,11 +149,11 @@ public class ShopCarFragment extends PFragment implements ShopcarRecyclerAdapter
     public PostageAdapter initPostageAdapter(Context context) {
         LinearLayoutHelper linearLayoutHelper = new LinearLayoutHelper();
         //设置间隔高度
-        linearLayoutHelper.setDividerHeight(5);
+        linearLayoutHelper.setDividerHeight(1);
         //设置布局底部与下个布局的间隔
-        linearLayoutHelper.setMarginBottom(20);
+        linearLayoutHelper.setMarginBottom(1);
         //设置间距
-        linearLayoutHelper.setMargin(20, 20, 20, 20);
+        linearLayoutHelper.setMargin(0, 0, 0, 0);
         postageAdapter = new PostageAdapter(context, linearLayoutHelper);
         postageAdapter.setMsg("满50元免运费","已免运费");
         return postageAdapter;
@@ -158,11 +161,11 @@ public class ShopCarFragment extends PFragment implements ShopcarRecyclerAdapter
     public DelAdapter initDelAdapter(Context context) {
         LinearLayoutHelper linearLayoutHelper = new LinearLayoutHelper();
         //设置间隔高度
-        linearLayoutHelper.setDividerHeight(5);
+        linearLayoutHelper.setDividerHeight(1);
         //设置布局底部与下个布局的间隔
-        linearLayoutHelper.setMarginBottom(20);
+        linearLayoutHelper.setMarginBottom(1);
         //设置间距
-        linearLayoutHelper.setMargin(20, 20, 20, 20);
+        linearLayoutHelper.setMargin(0, 0, 0, 0);
         delAdapter = new DelAdapter(context, linearLayoutHelper);
         delAdapter.setDelInterface(this);
         return delAdapter;
@@ -170,11 +173,11 @@ public class ShopCarFragment extends PFragment implements ShopcarRecyclerAdapter
     public CouponAdapter initCouponAdapter(Context context) {
         LinearLayoutHelper linearLayoutHelper = new LinearLayoutHelper();
         //设置间隔高度
-        linearLayoutHelper.setDividerHeight(5);
+        linearLayoutHelper.setDividerHeight(1);
         //设置布局底部与下个布局的间隔
-        linearLayoutHelper.setMarginBottom(20);
+        linearLayoutHelper.setMarginBottom(1);
         //设置间距
-        linearLayoutHelper.setMargin(20, 20, 20, 20);
+        linearLayoutHelper.setMargin(0, 0, 0, 0);
         couponAdapter = new CouponAdapter(context, linearLayoutHelper);
         couponAdapter.setCouponInterface(this);
         return couponAdapter;
@@ -183,24 +186,38 @@ public class ShopCarFragment extends PFragment implements ShopcarRecyclerAdapter
     public DiscountAdapter initDiscountAdapter(Context context) {
         LinearLayoutHelper linearLayoutHelper = new LinearLayoutHelper();
         //设置间隔高度
-        linearLayoutHelper.setDividerHeight(5);
+        linearLayoutHelper.setDividerHeight(1);
         //设置布局底部与下个布局的间隔
-        linearLayoutHelper.setMarginBottom(20);
+        linearLayoutHelper.setMarginBottom(1);
         //设置间距
-        linearLayoutHelper.setMargin(20, 20, 20, 20);
+        linearLayoutHelper.setMargin(0, 0, 0, 0);
         discountAdapter = new DiscountAdapter(context, linearLayoutHelper);
         discountAdapter.setDiscountInterface(this);
         return discountAdapter;
     }
 
+    public EmptyViewAdapter initEmptyViewAdapter(Context context) {
+        LinearLayoutHelper linearLayoutHelper = new LinearLayoutHelper();
+        //设置间隔高度
+        //设置间隔高度
+        linearLayoutHelper.setDividerHeight(1);
+        //设置布局底部与下个布局的间隔
+        linearLayoutHelper.setMarginBottom(1);
+        //设置间距
+        linearLayoutHelper.setMargin(0, 0, 0, 0);
+        emptyViewAdapter = new EmptyViewAdapter(context, linearLayoutHelper);
+        emptyViewAdapter.setEmptyViewInterface(this);
+        return emptyViewAdapter;
+    }
+
     public ShopcarRecyclerAdapter initDelegateRecycleAdapter(Context context) {
         LinearLayoutHelper linearLayoutHelper = new LinearLayoutHelper();
         //设置间隔高度
-        linearLayoutHelper.setDividerHeight(5);
+        linearLayoutHelper.setDividerHeight(1);
         //设置布局底部与下个布局的间隔
-        linearLayoutHelper.setMarginBottom(20);
+        linearLayoutHelper.setMarginBottom(1);
         //设置间距
-        linearLayoutHelper.setMargin(20, 20, 20, 20);
+        linearLayoutHelper.setMargin(0, 0, 0, 0);
         shopcarRecyclerAdapter = new ShopcarRecyclerAdapter(context, linearLayoutHelper);
         shopcarRecyclerAdapter.setModifyCountInterface(this);
         list = new ArrayList<>();
@@ -211,15 +228,16 @@ public class ShopCarFragment extends PFragment implements ShopcarRecyclerAdapter
     public ULikeHeaderAdapter initULikeHeaderAdapter(Context context) {
         LinearLayoutHelper linearLayoutHelper = new LinearLayoutHelper();
         //设置间隔高度
-        linearLayoutHelper.setDividerHeight(5);
+        linearLayoutHelper.setDividerHeight(1);
         //设置布局底部与下个布局的间隔
-        linearLayoutHelper.setMarginBottom(20);
+        linearLayoutHelper.setMarginBottom(1);
         //设置间距
-        linearLayoutHelper.setMargin(20, 20, 20, 20);
+        linearLayoutHelper.setMargin(0, 0, 0, 0);
         return new ULikeHeaderAdapter(context, linearLayoutHelper);
     }
     public StaggeredAdapter initStageredAdapter(Context context) {
-        StaggeredGridLayoutHelper staggeredGridLayoutHelper = new StaggeredGridLayoutHelper(2, 20);
+        StaggeredGridLayoutHelper staggeredGridLayoutHelper = new StaggeredGridLayoutHelper(2, 5);
+        staggeredGridLayoutHelper.setMargin(13,0,13,0);
         staggeredAdapter = new StaggeredAdapter(context, staggeredGridLayoutHelper);
         staggeredAdapter.setActionInterface(this);
         uList = new ArrayList<>();
@@ -262,6 +280,11 @@ public class ShopCarFragment extends PFragment implements ShopcarRecyclerAdapter
     }
     public void changeDiscount(){
         discountAdapter.showDiscount(!discountAdapter.isShowing());
+    }
+    //emptyview
+    @Override
+    public void goShopping() {
+        Toast.makeText(getActivity(),"shopping",Toast.LENGTH_SHORT).show();
     }
     //shop car
     @Override
@@ -325,6 +348,29 @@ public class ShopCarFragment extends PFragment implements ShopcarRecyclerAdapter
         model.setPay("结算（" + sum + ")");
     }
 
+    @Override
+    public void listEmpty() {
+        if(postageAdapter.isShowing()){
+            postageAdapter.showPostage(!postageAdapter.isShowing());
+        }
+        if(delAdapter.isShowing()){
+            delAdapter.showDel(!delAdapter.isShowing());
+        }
+        if(couponAdapter.isShowing()){
+            couponAdapter.showCoupon(!couponAdapter.isShowing());
+        }
+        if(discountAdapter.isShowing()){
+            discountAdapter.showDiscount(!discountAdapter.isShowing());
+        }
+        emptyViewAdapter.showEmptyView(true);
+
+    }
+
+    @Override
+    public void listNoEmpty() {
+        emptyViewAdapter.showEmptyView(false);
+    }
+
     public void changeState() {
         shopcarRecyclerAdapter.changEdit();
     }
@@ -377,7 +423,5 @@ public class ShopCarFragment extends PFragment implements ShopcarRecyclerAdapter
     public void doAddToShopCar(GuessULikeBean bean) {
         addToShopCar(new ShopcarProductBean(bean.getGoodsName(), "¥" + (list.size() + 1) + ".00", "url" + (list.size() + 1), (list.size() + 1), "" + (list.size() + 1), false, (list.size() + 1), false));
     }
-
-
 
 }

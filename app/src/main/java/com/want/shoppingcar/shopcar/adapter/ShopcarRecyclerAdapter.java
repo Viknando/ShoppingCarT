@@ -37,6 +37,11 @@ public class ShopcarRecyclerAdapter extends DelegateAdapter.Adapter<ShopCarViewH
 
     public void setData(List<ShopcarProductBean> list) {
         this.list = list;
+        if(this.list.size()==0){
+            modifyCountInterface.listEmpty();
+        }else {
+            modifyCountInterface.listNoEmpty();
+        }
         modifyCountInterface.calculateResult(modifyCountInterface.doCalculate(this.list),modifyCountInterface.doBuyNum(this.list));
         notifyDataSetChanged();
     }
@@ -63,6 +68,13 @@ public class ShopcarRecyclerAdapter extends DelegateAdapter.Adapter<ShopCarViewH
             setData(list);
         }
 
+    }
+
+    public boolean isEmpty(){
+        if(list.size()==0){
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -140,6 +152,10 @@ public class ShopcarRecyclerAdapter extends DelegateAdapter.Adapter<ShopCarViewH
         int doBuyNum(List<ShopcarProductBean> list);
 
         void calculateResult(double result,int num);
+
+        void listEmpty();
+
+        void listNoEmpty();
     }
 
     public void setModifyCountInterface(ModifyCountInterface modifyCountInterface) {

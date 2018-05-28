@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:padding="47dp"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/shop_hot_item_icon_2x"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="购物车是空的哦！"
+        android:textColor="#522B1C"
+        android:layout_marginTop="@dimen/dp12"/>
+
+    <TextView
+        android:id="@+id/btv_shopping"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="21dp"
+        android:background="@drawable/btn_shopping_bg"
+        android:paddingBottom="@dimen/dp13"
+        android:paddingLeft="@dimen/dp31"
+        android:paddingRight="@dimen/dp31"
+        android:paddingTop="@dimen/dp13"
+        android:text="去逛逛"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+</LinearLayout>
