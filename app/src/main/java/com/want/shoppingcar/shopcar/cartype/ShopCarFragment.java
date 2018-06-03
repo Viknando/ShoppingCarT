@@ -27,7 +27,7 @@ import com.want.shoppingcar.shopcar.adapter.EmptyViewAdapter;
 import com.want.shoppingcar.shopcar.adapter.ShopcarRecyclerAdapter;
 import com.want.shoppingcar.shopcar.adapter.DiscountAdapter;
 import com.want.shoppingcar.shopcar.adapter.PostageAdapter;
-import com.want.shoppingcar.shopcar.adapter.StaggeredAdapter;
+import com.want.shoppingcar.shopcar.adapter.GuessULikeAdapter;
 import com.want.shoppingcar.shopcar.adapter.ULikeHeaderAdapter;
 import com.want.shoppingcar.shopcar.contract.ShopCarContract;
 import com.want.shoppingcar.shopcar.entity.GuessULikeBean;
@@ -39,10 +39,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class ShopCarFragment extends PFragment implements ShopcarRecyclerAdapter.ModifyCountInterface, StaggeredAdapter.ActionInterface,CouponAdapter.CouponInterface,DiscountAdapter.DiscountInterface,DelAdapter.DelInterface,EmptyViewAdapter.EmptyViewInterface {
+public class ShopCarFragment extends PFragment implements ShopcarRecyclerAdapter.ModifyCountInterface, GuessULikeAdapter.ActionInterface,CouponAdapter.CouponInterface,DiscountAdapter.DiscountInterface,DelAdapter.DelInterface,EmptyViewAdapter.EmptyViewInterface {
     public ShopCarFragmentBinding binding;
     private ShopCarModel model;
-    private StaggeredAdapter staggeredAdapter;
+    private GuessULikeAdapter guessULikeAdapter;
     private ShopcarRecyclerAdapter shopcarRecyclerAdapter;
     private PostageAdapter postageAdapter;
     private DelAdapter delAdapter;
@@ -235,17 +235,17 @@ public class ShopCarFragment extends PFragment implements ShopcarRecyclerAdapter
         linearLayoutHelper.setMargin(0, 0, 0, 0);
         return new ULikeHeaderAdapter(context, linearLayoutHelper);
     }
-    public StaggeredAdapter initStageredAdapter(Context context) {
+    public GuessULikeAdapter initStageredAdapter(Context context) {
         StaggeredGridLayoutHelper staggeredGridLayoutHelper = new StaggeredGridLayoutHelper(2, 5);
         staggeredGridLayoutHelper.setMargin(13,0,13,0);
-        staggeredAdapter = new StaggeredAdapter(context, staggeredGridLayoutHelper);
-        staggeredAdapter.setActionInterface(this);
+        guessULikeAdapter = new GuessULikeAdapter(context, staggeredGridLayoutHelper);
+        guessULikeAdapter.setActionInterface(this);
         uList = new ArrayList<>();
         for (int i = 1; i < 8; i++) {
             uList.add(new GuessULikeBean("uGoodsName" + i, "¥" + i + ".00", "url" + i, "" + i));
         }
-        staggeredAdapter.setData(uList);
-        return staggeredAdapter;
+        guessULikeAdapter.setData(uList);
+        return guessULikeAdapter;
     }
 
     //postage
@@ -397,12 +397,12 @@ public class ShopCarFragment extends PFragment implements ShopcarRecyclerAdapter
     //guess ulike
     public void addToULike(GuessULikeBean bean) {
         uList.add(bean);
-        staggeredAdapter.setData(uList);
+        guessULikeAdapter.setData(uList);
     }
 
     public void addToULike(List<GuessULikeBean> l) {
         uList.addAll(l);
-        staggeredAdapter.setData(uList);
+        guessULikeAdapter.setData(uList);
     }
 
     public void loadMoreULike() {

@@ -5,9 +5,6 @@ import android.databinding.DataBindingUtil;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.LayoutHelper;
@@ -17,26 +14,31 @@ import com.want.shoppingcar.shopcar.entity.GuessULikeBean;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by viknando on 2018/5/24.
  */
 
-public class StaggeredAdapter extends DelegateAdapter.Adapter<GuessULikeViewHolder> {
+public class GuessULikeAdapter extends DelegateAdapter.Adapter<GuessULikeViewHolder> {
 
     private Context context;
     private LayoutHelper helper;
     private ActionInterface mActionInterface;
     private List<GuessULikeBean> list = new ArrayList<>();
 
-    public StaggeredAdapter(Context context, LayoutHelper helper) {
+    public GuessULikeAdapter(Context context, LayoutHelper helper) {
         this.context = context;
         this.helper = helper;
     }
 
     public void setData(List<GuessULikeBean> list) {
         this.list = list;
+        notifyDataSetChanged();
+    }
+    public void addData(List<GuessULikeBean> list) {
+        if(this.list==null)
+            this.list=new ArrayList<>();
+        this.list.addAll(list);
         notifyDataSetChanged();
     }
 
@@ -60,13 +62,23 @@ public class StaggeredAdapter extends DelegateAdapter.Adapter<GuessULikeViewHold
         holder.mBinding.ivShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mActionInterface.doShare(list.get(position));
+                if (context instanceof ActionInterface) {
+                    ActionInterface actionInterface = (ActionInterface) context;
+                    actionInterface.doShare(list.get(position));
+                } else if (mActionInterface!=null) {
+                    mActionInterface.doShare(list.get(position));
+                }
             }
         });
         holder.mBinding.ivAddtoShopcar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mActionInterface.doAddToShopCar(list.get(position));
+                if (context instanceof ActionInterface) {
+                    ActionInterface actionInterface = (ActionInterface) context;
+                    actionInterface.doAddToShopCar(list.get(position));
+                } else if (mActionInterface!=null) {
+                    mActionInterface.doAddToShopCar(list.get(position));
+                }
             }
         });
     }
@@ -78,7 +90,7 @@ public class StaggeredAdapter extends DelegateAdapter.Adapter<GuessULikeViewHold
     /**
      * 分析和添加到购物车的接口
      */
-    public interface ActionInterface {
+    public interface ActionInterface{
         /**
          * 增加操作
          *
